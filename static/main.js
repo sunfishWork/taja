@@ -145,7 +145,7 @@ function adjustDifficulty() {
 
   clearInterval(spawnInterval);
   spawnInterval = setInterval(spawnWord, spawnSpeed);
-  console.log(score, fallSpeed)
+  console.log(score, fallSpeed, spawnSpeed)
 }
 
 function startGame() {
