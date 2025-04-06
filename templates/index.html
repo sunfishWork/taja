@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>타자 게임</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <p id="final-score"></p>
+    <button onclick="closePopup()">닫기</button>
+  </div>
+</div>
+<body>
+  <h1>Prompton 타자 연습</h1>
+  <input type="file" id="fileInput" accept=".txt">
+  <button onclick="uploadFile()">시작</button>
+
+  <div id="game-area">
+    <!-- 낙하 단어 및 별 효과 위치 -->
+    <div id="defence-line">사업부 OPI Defence Line</div>
+  </div>
+
+  <input type="text" id="input" placeholder="입력하세요" disabled />
+<!--  <p id="score">점수: 0</p>-->
+  <p id="message"></p>
+
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
