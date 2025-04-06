@@ -24,4 +24,4 @@ def upload():
     return jsonify({'success': False, 'error': 'Invalid file format'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=9999, debug=True)
