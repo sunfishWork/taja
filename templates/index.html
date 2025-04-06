@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>타자 게임</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="/static/5g_logo.ico">
 </head>
 <div id="popup" class="popup">
   <div class="popup-content">
@@ -17,9 +18,19 @@
   <button onclick="uploadFile()">시작</button>
 
   <div id="game-area">
+      <div id="game-instruction" style="display: none;">
+          한때 찬란했던 네트워크 사업부...
+
+그러나 지금, 사업부는 커다란 위기에 직면해 있다.
+속절없이 늘어나는 PLM 그리고 점점 조여오는 Due Date...
+사업부의 존망이 위태로운 이 순간, 단 하나의 희망이 떠오른다.
+
+그 이름은... 바로 지금 이 Prompton을 하고 있는 당신!
+이제 당신의 빠른 손끝과 눈부신 집중력에 달려 있다...</div>
     <!-- 낙하 단어 및 별 효과 위치 -->
     <div id="defence-line">사업부 OPI Defence Line</div>
   </div>
+
 
   <input type="text" id="input" placeholder="입력하세요" disabled />
 <!--  <p id="score">점수: 0</p>-->

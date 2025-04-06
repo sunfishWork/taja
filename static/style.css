@@ -29,6 +29,32 @@ body {
   z-index: 100;
 }
 
+#game-instruction {
+  position: absolute;
+  bottom: -200px; /* 처음에는 화면 아래에 숨김 */
+  width: 100%;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  color: goldenrod;
+  z-index: 999;
+  animation: crawl 15s ease-out forwards;
+  white-space: pre-line; /* 줄바꿈 유지 */
+  line-height: 1.6;
+  pointer-events: none;
+}
+
+@keyframes crawl {
+  0% {
+    transform: perspective(400px) rotateX(20deg) translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(400px) rotateX(25deg) translateY(-70vh) scale(0.4);
+    opacity: 0;
+  }
+}
+
 @keyframes star-pop {
   0% {
     transform: scale(0.5) rotate(0deg);

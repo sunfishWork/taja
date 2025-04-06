@@ -12,6 +12,14 @@ const input = document.getElementById('input');
 const scoreDisplay = document.getElementById('score');
 const message = document.getElementById('message');
 let gunSound;
+let resultSound;
+
+try {
+  resultSound = new Audio("/static/sound/erhu-sample-67145.mp3");
+  resultSound.load();
+} catch (e) {
+  console.error("결과 사운드 로드 실패:", e);
+}
 
 try {
   gunSound = new Audio("/static/sound/cinematic-gun-163702.mp3");
@@ -109,7 +117,7 @@ function checkInput() {
       gameArea.removeChild(activeWords[i].el);
       activeWords.splice(i, 1);
       score++;
-      console.log(score)
+      // console.log(score)
       // scoreDisplay.textContent = `점수: ${score}`;
       input.value = '';
       adjustDifficulty();
@@ -122,17 +130,17 @@ function adjustDifficulty() {
   if (!gameRunning) return;
 
   if (score > 40) {
-    fallSpeed += 0.3;
-    spawnSpeed -= 600;
+    fallSpeed = 1.8;
+    spawnSpeed = 4000;
   } else if (score > 30) {
-    fallSpeed += 0.1;
-    spawnSpeed -= 300;
+    fallSpeed = 1.6;
+    spawnSpeed = 4500;
   } else if (score > 20) {
-    fallSpeed += 0.1;
-    spawnSpeed -= 300;
+    fallSpeed = 1.4;
+    spawnSpeed = 5000;
   } else if (score > 10) {
-    fallSpeed += 0.1;
-    spawnSpeed -= 300;
+    fallSpeed = 1.2;
+    spawnSpeed = 5500;
   }
 
   clearInterval(spawnInterval);
@@ -150,12 +158,24 @@ function startGame() {
   input.value = '';
   message.textContent = '';
   // scoreDisplay.textContent = '점수: 0';
+  const instruction = document.getElementById('game-instruction');
+
+  // 설명 표시
+  instruction.style.display = 'block';
+
 
   // 기존 단어 요소만 제거 (defence-line은 놔둠)
   document.querySelectorAll('.falling-word').forEach(el => el.remove());
 
-  dropInterval = setInterval(moveWords, 50);
-  spawnInterval = setInterval(spawnWord, spawnSpeed);
+  // 2초 후 설명 사라지고 게임 시작
+  setTimeout(() => {
+    instruction.style.display = 'none';
+    dropInterval = setInterval(moveWords, 50);
+    spawnInterval = setInterval(spawnWord, spawnSpeed);
+  }, 10000);
+
+  // dropInterval = setInterval(moveWords, 50);
+  // spawnInterval = setInterval(spawnWord, spawnSpeed);
 }
 
 function endGame() {
@@ -166,6 +186,11 @@ function endGame() {
 
   // 기존 메시지는 숨기고 팝업 사용
   message.textContent = '';
+
+  if (resultSound) {
+    resultSound.currentTime = 0;
+    resultSound.play().catch(err => console.warn("결과음 재생 오류:", err));
+  }
 
   // 점수 팝업 띄우기
   document.getElementById('final-score').textContent = `최종 OPI: ${score} %`;
@@ -196,6 +221,12 @@ function spawnStar(x, y) {
 
 function closePopup() {
   document.getElementById('popup').style.display = 'none';
+
+  // 🎵 사운드 멈춤 추가
+  if (resultSound) {
+    resultSound.pause();
+    resultSound.currentTime = 0; // 처음으로 되감기
+  }
 }
 
 input.addEventListener('keydown', function (e) {
